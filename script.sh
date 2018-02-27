@@ -15,3 +15,4 @@ sudo yum -y install python36u-devel
 sudo yum -y install mariadb-server
 sudo systemctl start mariadb
 
+sudo pip3.6 install Flask
