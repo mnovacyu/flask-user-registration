@@ -13,9 +13,20 @@ sudo yum -y install python36u
 sudo yum -y install python36u-pip
 sudo yum -y install python36u-devel
 
-# Install Flask
+# Install Flask and extensions
 sudo pip3.6 install Flask
 
+# Install Flask extensions
+sudo pip3.6 install flask-mysqldb
+sudo pip3.6 install Flask-WTF
+sudo pip3.6 install passlib
+
 # Install MariaDB
-sudo yum -y install mariadb-server
+sudo yum -y install mariadb-server mysql-devel
 sudo systemctl start mariadb
+
+# Setup databases
+mysql -e "CREATE DATABASE myflaskapp"
+
+mysql -e "USE myflaskapp; CREATE TABLE users(id INT(11) AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), email VARCHAR(100), username VARCHAR(30), password VARCHAR(100), register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"
+
