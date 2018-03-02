@@ -49,7 +49,17 @@ def articles():
 # Single Article
 @app.route('/article/<string:id>/')
 def article(id):
-    return render_template('article.html', id=id)
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get article
+    result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
+
+    article = cur.fetchone()
+
+    # Close connection
+    cur.close()
+    return render_template('article.html', article=article)
 
 # Register Form Class
 class RegisterForm(Form):
