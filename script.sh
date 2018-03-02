@@ -25,7 +25,7 @@ sudo pip3.6 install passlib
 sudo yum -y install mariadb-server mysql-devel
 sudo systemctl start mariadb
 
-# Creat database
+# Create database
 mysql -e "CREATE DATABASE myflaskapp"
 
 # Create users table
