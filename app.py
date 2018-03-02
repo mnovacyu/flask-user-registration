@@ -32,7 +32,22 @@ def about():
 # Articles
 @app.route('/articles')
 def articles():
-    return render_template('articles.html', articles = Articles)
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get articles
+    result = cur.execute("SELECT * FROM articles")
+
+    articles = cur.fetchall()
+
+    if result > 0:
+        return render_template('articles.html', articles=articles)
+    else:
+        msg = 'No Articles Found'
+        return render_template('articles.html', msg=msg)
+
+    # Close connection
+    cur.close()
 
 # Single Article
 @app.route('/article/<string:id>/')
@@ -135,7 +150,22 @@ def logout():
 @app.route('/dashboard')
 @is_logged_in
 def dashboard():
-    return render_template('dashboard.html')
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get articles
+    result = cur.execute("SELECT * FROM articles")
+
+    articles = cur.fetchall()
+
+    if result > 0:
+        return render_template('dashboard.html', articles=articles)
+    else:
+        msg = 'No Articles Found'
+        return render_template('dashboard.html', msg=msg)
+
+    # Close connection
+    cur.close()
 
 # Article Form Class
 class ArticleForm(Form):
