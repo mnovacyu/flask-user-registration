@@ -12,3 +12,5 @@ services:
   db:
     image: "mysql:8.0.4"
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
