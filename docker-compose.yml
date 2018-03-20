@@ -13,4 +13,8 @@ services:
     image: "mysql:8.0.4"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: examplepass
+    volumes:
+      - my-datavolume:/var/lib/mysql
+volumes:
+  my-datavolume:
