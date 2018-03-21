@@ -1,7 +1,8 @@
-# Flask App
+# Build Web Docker Image
+`docker build -t flaskuserregistration_web:latest ./docker/web/`
 
-If setting up in Vagrant dev environment, set app.run first to - `app.run(host='0.0.0.0', debug=True)`
+# Import SQL Dump
+`cat dbcreation.sql | docker exec -i [MARIADB_CONTAINER_ID] /usr/bin/mysql -uroot -proot myflaskapp`
 
-# Importing SQL Dump
-`cat dbcreation.sql | docker exec -i CONTAINER /usr/bin/mysql -uroot --p=root myflaskapp`
-
+# Bring up Docker stack
+`docker-compose -f docker-compose.yml up`
