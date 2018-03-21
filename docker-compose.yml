@@ -1,10 +1,9 @@
 version: '3'
 services:
   db:
-    build: ./docker/db
     ports:
       - "3306:3306"
-    image: "mysql:8.0.4"
+    image: "mariadb:10.3.5"
     command: mysqld --user=root --verbose
     restart: always
     environment:
