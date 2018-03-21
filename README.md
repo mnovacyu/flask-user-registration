@@ -1,5 +1,7 @@
 # Flask User Registration Web App
 
+![Screenshot](screenshot.png)
+
 ## Build Web Docker Image
 `docker build -t flaskuserregistration_web:latest ./docker/web/`
 
