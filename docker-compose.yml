@@ -15,7 +15,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - ./dbcreation.sql:/tmp/dbcreation.sql
-      - ./importsh:/tmp/import.sh
+      - ./import.sh:/tmp/import.sh
   web:
     build: ./docker/web
     ports:
