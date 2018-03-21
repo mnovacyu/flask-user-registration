@@ -4,7 +4,7 @@ services:
     ports:
       - "3306:3306"
     image: "mariadb:10.3.5"
-    command: mysqld --user=root --verbose
+    command: mysqld -uroot --verbose
     restart: always
     environment:
       MYSQL_DATABASE: "myflaskapp"
@@ -20,7 +20,5 @@ services:
     ports:
       - "5000:5000"
     restart: always
-    links:
-      - db
     depends_on:
       - db

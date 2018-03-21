@@ -1,6 +1,6 @@
 FROM centos:7
 MAINTAINER Michael Novac-Yu "michael.novacyu@gmail.com"
-RUN yum update -y
+RUN yum -y update
 RUN yum -y install yum-utils
 RUN yum -y groupinstall development
 RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm
