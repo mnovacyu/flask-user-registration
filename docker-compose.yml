@@ -1,9 +1,9 @@
 version: '3'
 services:
   db:
+    image: "mariadb:10.3.5"
     ports:
       - "3306:3306"
-    image: "mariadb:10.3.5"
     command: mysqld -uroot --verbose
     restart: always
     environment:
@@ -12,9 +12,6 @@ services:
       MYSQL_PASSWORD: "test"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    volumes:
-      - ./dbcreation.sql:/tmp/dbcreation.sql
-      - ./import.sh:/tmp/import.sh
   web:
     build: ./docker/web
     ports:
