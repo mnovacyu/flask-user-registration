@@ -269,7 +269,8 @@ def delete_article(id):
 
     return redirect(url_for('dashboard'))
 
-# API
+# APIs
+# Get all users
 class api_users(Resource):
     def get(self):
         cur = mysql.connection.cursor()
@@ -283,12 +284,27 @@ class api_users(Resource):
 
         return jsonify(users)
 
+# Get a specific user
+class api_user_id(Resource):
+    def get(self, user_id):
+        cur = mysql.connection.cursor()
+
+        # Execute
+        cur.execute("SELECT username, email, id, name, register_date FROM users WHERE id = %s", (user_id))
+
+        user = cur.fetchall()
+
+        cur.close()
+
+        return jsonify(user)
+
+# Get all articles
 class api_articles(Resource):
     def get(self):
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("SELECT * FROM articles")
+        cur.execute("SELECT author, create_date, id, title, body FROM articles")
 
         articles = cur.fetchall()
 
@@ -296,8 +312,24 @@ class api_articles(Resource):
 
         return jsonify(articles)
 
+# Get a specific article
+class api_article_id(Resource):
+    def get(self, article_id):
+        cur = mysql.connection.cursor()
+
+        # Execute
+        cur.execute("SELECT author, create_date, id, title, body FROM articles WHERE id = %s", (article_id))
+
+        article = cur.fetchall()
+
+        cur.close()
+
+        return jsonify(article)
+
 api.add_resource(api_users, '/api/users/')
+api.add_resource(api_user_id, '/api/users/<user_id>')
 api.add_resource(api_articles, '/api/articles/')
+api.add_resource(api_article_id, '/api/articles/<article_id>')
 
 if __name__ == '__main__':
     app.secret_key='secret123' #session key
