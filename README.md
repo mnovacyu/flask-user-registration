@@ -14,3 +14,4 @@
 ### To-do
 * volumize the app folder to allow for faster development
 * separate app.py file into multiple files
+* tighten up user permissions in the app
