@@ -1,4 +1,7 @@
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, jsonify
+from flask import (
+    Flask, render_template, flash, redirect, url_for, session,
+    request, logging, jsonify
+)
 from flask_mysqldb import MySQL
 from flask_restful import Resource, Api
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
@@ -18,15 +21,18 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # Init MySQL
 mysql = MySQL(app)
 
+
 # Index
 @app.route('/')
 def index():
     return render_template('home.html')
 
+
 # About
 @app.route('/about')
 def about():
     return render_template('about.html')
+
 
 # Articles
 @app.route('/articles')
@@ -48,6 +54,7 @@ def articles():
     # Close connection
     cur.close()
 
+
 # Single Article
 @app.route('/article/<string:id>/')
 def article(id):
@@ -63,6 +70,7 @@ def article(id):
     cur.close()
     return render_template('article.html', article=article)
 
+
 # Register Form Class
 class RegisterForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
@@ -73,6 +81,7 @@ class RegisterForm(Form):
         validators.EqualTo('confirm', message='Passwords do not match')
     ])
     confirm = PasswordField('Confirm Password')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -86,8 +95,9 @@ def register():
         # Create cursor
         cur = mysql.connection.cursor()
 
-        cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
-
+        cur.execute(
+            "INSERT INTO users(name, email, username, password) "
+            "VALUES(%s, %s, %s, %s)", (name, email, username, password))
         # Commit to DB
         mysql.connection.commit()
 
@@ -98,6 +108,7 @@ def register():
 
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
 
 # User Login
 @app.route('/login', methods=['GET', 'POST'])
@@ -111,7 +122,10 @@ def login():
         cur = mysql.connection.cursor()
 
         # Get user by username
-        result = cur.execute("SELECT * FROM users WHERE username = %s", [username])
+        result = cur.execute(
+            "SELECT * "
+            "FROM users "
+            "WHERE username = %s", [username])
 
         if result > 0:
             # Get stored hash
@@ -128,13 +142,14 @@ def login():
                 return redirect(url_for('dashboard'))
             else:
                 error = 'Invalid login'
-                return render_template('login.html', error=error)      
+                return render_template('login.html', error=error)
         else:
             error = 'Username not found'
-            return render_template('login.html', error=error) 
+            return render_template('login.html', error=error)
         # Close connection
         cur.close()
     return render_template('login.html')
+
 
 # Check if user logged in
 def is_logged_in(f):
@@ -147,6 +162,7 @@ def is_logged_in(f):
             return redirect(url_for('login'))
     return wrap
 
+
 # Logout
 @app.route('/logout')
 @is_logged_in
@@ -154,6 +170,7 @@ def logout():
     session.clear()
     flash('You are now logged out', 'success')
     return redirect(url_for('login'))
+
 
 # Dashboard
 @app.route('/dashboard')
@@ -176,10 +193,12 @@ def dashboard():
     # Close connection
     cur.close()
 
+
 # Article Form Class
 class ArticleForm(Form):
     title = StringField('Title', [validators.Length(min=1, max=200)])
     body = TextAreaField('Body', [validators.Length(min=30)])
+
 
 # Add Article
 @app.route('/add_article', methods=['GET', 'POST'])
@@ -194,7 +213,9 @@ def add_article():
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("INSERT INTO articles(title, body, author) VALUES(%s, %s, %s)", (title, body, session['username']))
+        cur.execute(
+            "INSERT INTO articles(title, body, author) "
+            "VALUES(%s, %s, %s)", (title, body, session['username']))
 
         # Commit to DB
         mysql.connection.commit()
@@ -207,6 +228,7 @@ def add_article():
         return redirect(url_for('dashboard'))
 
     return render_template('add_article.html', form=form)
+
 
 # Edit Article
 @app.route('/edit_article/<string:id>', methods=['GET', 'POST'])
@@ -235,7 +257,10 @@ def edit_article(id):
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("UPDATE articles SET title = %s, body = %s WHERE id = %s", (title, body, id))
+        cur.execute(
+            "UPDATE articles "
+            "SET title = %s, body = %s "
+            "WHERE id = %s", (title, body, id))
 
         # Commit to DB
         mysql.connection.commit()
@@ -248,6 +273,7 @@ def edit_article(id):
         return redirect(url_for('dashboard'))
 
     return render_template('edit_article.html', form=form)
+
 
 # Delete Article
 @app.route('/delete_article/<string:id>', methods=['POST'])
@@ -269,6 +295,7 @@ def delete_article(id):
 
     return redirect(url_for('dashboard'))
 
+
 # APIs
 # Get all users
 class api_users(Resource):
@@ -276,7 +303,9 @@ class api_users(Resource):
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("SELECT username, email, id, name, register_date FROM users")
+        cur.execute(
+            "SELECT username, email, id, name, register_date "
+            "FROM users")
 
         users = cur.fetchall()
 
@@ -284,13 +313,17 @@ class api_users(Resource):
 
         return jsonify(users)
 
+
 # Get a specific user
 class api_user_id(Resource):
     def get(self, user_id):
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("SELECT username, email, id, name, register_date FROM users WHERE id = %s", (user_id))
+        cur.execute(
+            "SELECT username, email, id, name, register_date "
+            "FROM users "
+            "WHERE id = %s", (user_id))
 
         user = cur.fetchall()
 
@@ -298,13 +331,16 @@ class api_user_id(Resource):
 
         return jsonify(user)
 
+
 # Get all articles
 class api_articles(Resource):
     def get(self):
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("SELECT author, create_date, id, title, body FROM articles")
+        cur.execute(
+            "SELECT author, create_date, id, title, body "
+            "FROM articles")
 
         articles = cur.fetchall()
 
@@ -312,13 +348,16 @@ class api_articles(Resource):
 
         return jsonify(articles)
 
+
 # Get a specific article
 class api_article_id(Resource):
     def get(self, article_id):
         cur = mysql.connection.cursor()
 
         # Execute
-        cur.execute("SELECT author, create_date, id, title, body FROM articles WHERE id = %s", (article_id))
+        cur.execute(
+            "SELECT author, create_date, id, title, body "
+            "FROM articles WHERE id = %s", (article_id))
 
         article = cur.fetchall()
 
@@ -332,5 +371,5 @@ api.add_resource(api_articles, '/api/articles/')
 api.add_resource(api_article_id, '/api/articles/<article_id>')
 
 if __name__ == '__main__':
-    app.secret_key='secret123' #session key
+    app.secret_key = 'secret123'  # session key
     app.run(host='0.0.0.0', debug=True)
