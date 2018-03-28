@@ -1,10 +1,12 @@
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
+from flask import Flask, render_template, flash, redirect, url_for, session, request, logging, jsonify
 from flask_mysqldb import MySQL
+from flask_restful import Resource, Api
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 
 app = Flask(__name__)
+api = Api(app)
 
 # Config MariaDB
 app.config['MYSQL_HOST'] = 'db'
@@ -266,6 +268,36 @@ def delete_article(id):
     flash('Article Deleted', 'success')
 
     return redirect(url_for('dashboard'))
+
+# API
+class api_users(Resource):
+    def get(self):
+        cur = mysql.connection.cursor()
+
+        # Execute
+        cur.execute("SELECT username, email, id, name, register_date FROM users")
+
+        users = cur.fetchall()
+
+        cur.close()
+
+        return jsonify(users)
+
+class api_articles(Resource):
+    def get(self):
+        cur = mysql.connection.cursor()
+
+        # Execute
+        cur.execute("SELECT * FROM articles")
+
+        articles = cur.fetchall()
+
+        cur.close()
+
+        return jsonify(articles)
+
+api.add_resource(api_users, '/api/users/')
+api.add_resource(api_articles, '/api/articles/')
 
 if __name__ == '__main__':
     app.secret_key='secret123' #session key
