@@ -1,8 +1,8 @@
--- MySQL dump 10.14  Distrib 5.5.56-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.3.5-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: myflaskapp
 -- ------------------------------------------------------
--- Server version	5.5.56-MariaDB
+-- Server version	10.3.5-MariaDB-10.3.5+maria~jessie
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `myflaskapp`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `myflaskapp` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `myflaskapp`;
+
+--
 -- Table structure for table `articles`
 --
 
@@ -26,10 +34,10 @@ CREATE TABLE `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
-  `body` text,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `body` text DEFAULT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +46,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
+INSERT INTO `articles` VALUES (1,'Why I\'m not a fan of jokes','bruce','<p>Lorem ipsum dolor sit amet, his id solum audire, postea alterum mei ex. Sed nullam soluta sapientem in, vix elit corrumpit ad. Mea summo iudicabit et, fabulas intellegebat ut per. Stet singulis cotidieque mea ne.</p>\r\n\r\n<p>Dicunt eripuit sanctus vis ut, quaestio oportere prodesset per cu, ne case prima erant pri. Vel assum nullam quidam an. Quo magna assentior no, accusam ponderum imperdiet te vim, scaevola adipiscing ne sit. Ei nostrud conceptam eos. Vis mutat partiendo cotidieque cu, cu epicuri scaevola incorrupte duo.</p>\r\n','2018-03-28 20:06:21'),(2,'Britney > Christina','britney','<p>Lorem ipsum dolor sit amet, sit tota justo luptatum eu, cum ubique causae at. Error repudiandae an eos. Quo laboramus gloriatur eu. Te appetere maiestatis eam, in est mundi dolorem. Vim no dicit sonet, harum dolor consequuntur ne quo. Duo ei ullum tollit corpora, vel at vero commune.<br />\r\n&nbsp;</p>\r\n','2018-03-28 20:08:47');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,9 +63,9 @@ CREATE TABLE `users` (
   `email` varchar(100) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
-  `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `register_date` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +74,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Bruce Wayne','bruce@waynenterprices.com','bruce','$5$rounds=535000$zGa5Asv3PuKXZLOV$iPdg9F1DumhgB60Sa9VsenWt2AsMeP.6kms0vRpByaA','2018-03-28 20:05:36'),(2,'Britney Spears','b@itsbritney.com','britney','$5$rounds=535000$64llh8/lFiueaVSl$PTBfAy7aM2riFRNiBXkudNxfmY97BISgngGH8EE/1L7','2018-03-28 20:07:16');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -77,4 +87,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-21  4:51:21
+-- Dump completed on 2018-03-28 20:13:59
