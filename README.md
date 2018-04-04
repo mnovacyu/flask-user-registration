@@ -3,7 +3,7 @@
 ## Description
 Flask app with RESTful API. Built using Bootstrap and MariaDB. Provisioned with Vagrant and Docker.
 
-Example hosted on http://wanderingcows.dnsdynamic.com:5000/
+An example is hosted on a Raspberry Pi 3 at http://wanderingcows.dnsdynamic.com:5000/
 
 ### APIs
 * Users: http://wanderingcows.dnsdynamic.com:5000/api/users/
