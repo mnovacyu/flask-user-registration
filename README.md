@@ -1,6 +1,13 @@
 # Flask User Registration Web App
 
-![Screenshot](screenshot.png)
+## Description
+Flask app with RESTful API. Built using Bootstrap and MariaDB. Provisioned with Vagrant and Docker.
+
+Example hosted on http://wanderingcows.dnsdynamic.com:5000/
+
+### APIs
+Users: http://wanderingcows.dnsdynamic.com:5000/api/users/
+Articles: http://wanderingcows.dnsdynamic.com:5000/api/articles/
 
 ## Usage
 ### Requirements
