@@ -372,4 +372,4 @@ api.add_resource(api_article_id, '/api/articles/<article_id>')
 
 if __name__ == '__main__':
     app.secret_key = 'secret123'  # session key
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
