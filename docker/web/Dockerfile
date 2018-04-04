@@ -1,12 +1,6 @@
-FROM centos:7
+FROM arm32v7/python:3
 MAINTAINER Michael Novac-Yu "michael.novacyu@gmail.com"
-RUN yum -y update
-RUN yum -y install yum-utils
-RUN yum -y groupinstall development
-RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-RUN yum -y install python36u python36u-pip python36u-devel mysql-devel
 COPY . /app
 WORKDIR /app
-RUN pip3.6 install -r requirements.txt
-ENTRYPOINT ["python3.6"]
-CMD ["app.py"]
+RUN pip install -r requirements.txt
+CMD [ "python", "app.py" ]
