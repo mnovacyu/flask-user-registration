@@ -6,8 +6,8 @@ Flask app with RESTful API. Built using Bootstrap and MariaDB. Provisioned with 
 Example hosted on http://wanderingcows.dnsdynamic.com:5000/
 
 ### APIs
-Users: http://wanderingcows.dnsdynamic.com:5000/api/users/
-Articles: http://wanderingcows.dnsdynamic.com:5000/api/articles/
+* Users: http://wanderingcows.dnsdynamic.com:5000/api/users/
+* Articles: http://wanderingcows.dnsdynamic.com:5000/api/articles/
 
 ## Usage
 ### Requirements
