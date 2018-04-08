@@ -26,3 +26,4 @@ An example is hosted on a Raspberry Pi 3 at http://wanderingcows.dnsdynamic.com:
 * other OAuth providers and add Facebook authentication
 * integrating with another published API (e.g. Google, Wikipedia, Github etc.)
 * further secure the API
+* fix menu button functionality when window is non-fullscreen
