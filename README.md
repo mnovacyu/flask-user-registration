@@ -6,8 +6,10 @@ Flask app with RESTful API. Built using Bootstrap and MariaDB. Provisioned with 
 An example is hosted on a Raspberry Pi 3 at http://wanderingcows.dnsdynamic.com:5000/
 
 ### APIs
-* Users: http://wanderingcows.dnsdynamic.com:5000/api/users/
-* Articles: http://wanderingcows.dnsdynamic.com:5000/api/articles/
+* Users: [/api/users](http://wanderingcows.dnsdynamic.com:5000/api/users/)
+* Specific User: [/api/users/<user_id>](http://wanderingcows.dnsdynamic.com:5000/api/users/1)
+* Articles: [/api/articles](http://wanderingcows.dnsdynamic.com:5000/api/articles/)
+* Specific Article: [/api/articles/<article_id>](http://wanderingcows.dnsdynamic.com:5000/api/articles/1)
 
 ## Usage
 ### Requirements
