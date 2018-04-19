@@ -19,6 +19,7 @@ An example is hosted on a Raspberry Pi 3 at http://wanderingcows.dnsdynamic.com:
 1. Open `localhost:5000` in a browser
 
 ### To-do List
+* improve set up procedure. consolidate provisioning to just Docker Compose
 * catch exceptions on api calls
 * volumize the app folder to allow for faster development
 * separate app.py file into multiple files
