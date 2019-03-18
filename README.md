@@ -1,9 +1,7 @@
 # Flask User Registration Web App
 
 ## Description
-Flask app with RESTful API. Built using Bootstrap and MariaDB. Provisioned with Vagrant and Docker.
-
-An example is hosted on a Raspberry Pi 3 at http://wanderingcows.dnsdynamic.com:5000/
+Exercise for learning Flask. Built with RESTful API, using Bootstrap and MariaDB. Provisioned with Vagrant and Docker.
 
 ### APIs
 * **Users**: [/api/users](http://wanderingcows.dnsdynamic.com:5000/api/users/)
@@ -21,6 +19,7 @@ An example is hosted on a Raspberry Pi 3 at http://wanderingcows.dnsdynamic.com:
 1. Open `localhost:5000` in a browser
 
 ### To-do List
+* remove reliance on unreliable 3rd party Docker image
 * improve set up procedure. consolidate provisioning to just Docker Compose
 * catch exceptions on api calls
 * volumize the app folder to allow for faster development
